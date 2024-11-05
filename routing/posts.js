@@ -9,6 +9,8 @@ router.get('/', PostsController.index);
 router.get('/filter', PostsController.filter);
 // Crea un nuovo post
 router.post('/store', PostsController.store); 
+// Modifico un post
+router.put('/:title', PostsController.update); 
 // rotta di show
 router.get('/:slug', PostsController.show);
 

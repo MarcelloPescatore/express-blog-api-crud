@@ -2,25 +2,33 @@ const posts = require('../db/db.js')
 const fs = require('fs')
 
 // index: ritornerà un html con una ul che stamperà la lista dei post
+// const index = (req, res) => {
+//     let markup = ''
+
+//     posts.forEach(post => {
+//         const { title, slug, content, image, tags } = post;
+
+//         return markup += `
+//             <li>
+//                 <h2>${title}</h2>
+//                 <h3>${slug}</h3>
+//                 <h4>${content}</h4>
+//                 <img src="/imgs/posts/${image}"</img> <br>
+//                 <span>${tags}</span>
+//             </li>
+//         `
+//     });
+
+//     return res.send(`<ul>${markup}</ul>`)
+// };
+
+//  la rotta index creata ieri (commentala via) e ricreala restituendo un JSON con la lista dei posts invece di un ul.
 const index = (req, res) => {
-    let markup = ''
-
-    posts.forEach(post => {
-        const { title, slug, content, image, tags } = post;
-
-        return markup += `
-            <li>
-                <h2>${title}</h2>
-                <h3>${slug}</h3>
-                <h4>${content}</h4>
-                <img src="/imgs/posts/${image}"</img> <br>
-                <span>${tags}</span>
-            </li>
-        `
-    });
-
-    return res.send(`<ul>${markup}</ul>`)
-};
+    res.status(202).json({
+        data: posts,
+        counter: posts.length
+    })
+}
 
 // show: tramite il parametro dinamico che rappresenta lo slug del post, ritornerà un json con i dati del post
 const show = (req, res) => {
@@ -76,10 +84,48 @@ const store = (req, res) => {
     })
 }
 
+// Update post
+
+const update = (req, res) => {
+    // prima devo trovare il post da modificare, attraverso il titolo
+    const {title} = req.params;
+
+    
+    // ora cerco l'indice del post attraverso il titolo
+    const postIndex = posts.findIndex(post => post.title.toLocaleLowerCase() === title.toLocaleLowerCase());
+    
+    // verifico se esiste un post con quel titolo
+    if (postIndex === -1){
+        return res.status(404).json({
+            status: 404,
+            message: "Il post che vuoi modificare non è stato trovato"
+        })
+    }
+
+    // vado a modificare direttamente il post a quell'indice
+    posts[postIndex] = {
+        title: req.body.title,
+        slug: req.body.slug,
+        content: req.body.content,
+        image: req.body.image,
+        tags: [req.body.tags]
+    }
+
+    // aggiorno il file 
+    fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(posts, null, 4)}`)
+
+    res.json({
+        status: 201,
+        message: "Post modificato con successo",
+        data: posts,
+        counter: posts.length
+    })
+}
 
 module.exports = {
     index, 
     show, 
     store,
-    filter
+    filter,
+    update
 }
