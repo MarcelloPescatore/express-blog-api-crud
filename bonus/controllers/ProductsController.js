@@ -102,7 +102,7 @@ const destroy = (req, res) => {
     const newProducts = products.filter(product => product.id !== Number(req.params.id))
 
     // aggiorniamo il file
-    fs.writeFileSync = ('./db/products.js', `module.exports = ${JSON.stringify(newProducts, null, 4)}`)
+    fs.writeFileSync('./db/products.js', `module.exports = ${JSON.stringify(newProducts, null, 4)}`)
 
     // ritorniamo il nuovo array
     res.status(203).json({
