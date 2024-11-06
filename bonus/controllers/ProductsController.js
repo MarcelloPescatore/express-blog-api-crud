@@ -4,7 +4,7 @@ const products = require('../db/products')
 // per aggiornare il file
 const fs = require('fs')
 
-// rotta index mostro i prodotti in json
+// rotta index mostro i prodotti in json (R)
 const index = (req, res) => {
     res.status(200).json({
         status: 200,
@@ -37,7 +37,7 @@ const inPage = (req, res) => {
 
 }
 
-// rotta per aggiungere un prodotto
+// rotta per aggiungere un prodotto (C)
 const store = (req, res) => {
     // creiamo il nuovo prodotto prendendo i valori dal body
     const product = {
@@ -60,7 +60,7 @@ const store = (req, res) => {
     })
 }
 
-// rotta per aggiornare un prodotto
+// rotta per aggiornare un prodotto (U)
 const update = (req, res) => {
 
     // trovo il prodotto con l'id della richiesta
@@ -88,7 +88,7 @@ const update = (req, res) => {
     })
 }
 
-// rotta per eliminare un prodotto
+// rotta per eliminare un prodotto (D)
 const destroy = (req, res) => {
     // trovo il prodotto con l'id della richiesta
     const product = products.find(product => product.id === Number(req.params.id))
