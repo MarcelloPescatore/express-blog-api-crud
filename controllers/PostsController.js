@@ -92,7 +92,7 @@ const update = (req, res) => {
 
     
     // ora cerco l'indice del post attraverso il titolo
-    const postIndex = posts.findIndex(post => post.title.toLocaleLowerCase() === title.toLocaleLowerCase());
+    const postIndex = posts.findIndex(post => post.title.toLowerCase() === title.toLowerCase());
     
     // verifico se esiste un post con quel titolo
     if (postIndex === -1){
@@ -122,10 +122,35 @@ const update = (req, res) => {
     })
 }
 
+// delete post
+const destroy = (req, res) => {
+    // trova il post dal titolo
+    const post = posts.find(post => post.title.toLowerCase() === req.params.title.toLowerCase() )
+
+    // controlliamo se il post è presente
+    if (!post) {
+        return res.status(404).json({ error: "No post found with that title" })
+    }
+
+    // rimuoviamo il post restituendo un nuovo array senza quel post
+    const newPosts = posts.filter(post => post.title.toLowerCase() !== req.params.title.toLowerCase())
+
+    // aggiorniamo il file 
+    fs.writeFileSync('./db/db.js', `module.exports = ${JSON.stringify(newPosts, null, 4)}`)
+
+    // restituiamo gli elementi aggiornati 
+    res.status(200).json({
+        status: 200,
+        data: newPosts,
+        counter: newPosts.length
+    })
+}
+
 module.exports = {
     index, 
     show, 
     store,
     filter,
-    update
+    update,
+    destroy
 }

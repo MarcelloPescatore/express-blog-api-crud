@@ -13,5 +13,7 @@ router.post('/store', PostsController.store);
 router.put('/:title', PostsController.update); 
 // rotta di show
 router.get('/:slug', PostsController.show);
+// rotta delete
+router.delete('/:title', PostsController.destroy)
 
 module.exports = router;
