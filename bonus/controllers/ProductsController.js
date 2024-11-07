@@ -14,7 +14,7 @@ const index = (req, res) => {
 }
 
 // rotta per mostrare i prodotti in pagina
-const inPage = (req, res) => {
+const show = (req, res) => {
     // creo una variabile markup dove aggiungerci il markup ciclato nel forEch
     let markup = ''
 
@@ -114,7 +114,7 @@ const destroy = (req, res) => {
 
 module.exports = {
     index,
-    inPage,
+    show,
     store,
     update,
     destroy

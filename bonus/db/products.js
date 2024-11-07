@@ -33,12 +33,5 @@ module.exports = [
         "price": 500,
         "category": "Electronics",
         "image": "console.png"
-    },
-    {
-        "id": 6,
-        "name": "Monitor da gaming",
-        "image": "headphones.jpg",
-        "price": 250,
-        "category": "Accessories"
     }
 ]
