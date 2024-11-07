@@ -8,14 +8,14 @@ const loggerMiddleware = require('./middlewares/loggerMiddleware.js')
 const PostsRouter = require('./routing/posts.js');
 // asset publici
 app.use(express.static('public'))
-
-// middleware richiesta rotte
-app.use('/', loggerMiddleware)
 // middleware 
 app.use(express.json());
 
+// middleware richiesta rotte
+app.use('/', loggerMiddleware)
+
 // middleware per attivare un errore 500
-/* app.use('/pizze', (req, res, next) => {
+/* app.use('/posts', (req, res, next) => {
     throw new Error("You broke everything dude! 💥");
 });  */
 /* app.use('/posts', (req, res, next) => {
