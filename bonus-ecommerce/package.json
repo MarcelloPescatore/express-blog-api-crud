@@ -1,0 +1,16 @@
+{
+  "name": "bonus-ecommerce",
+  "version": "1.0.0",
+  "description": "Esercizio eCommerce - API CRUD\r Repository: express-ecommerce-api-crud",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
