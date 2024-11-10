@@ -4,6 +4,9 @@ const PORT = 3007
 const HOST = "http://localhost:"
 const PostsRouter = require('./routes/ProductsRout.js')
 
+
+app.use(express.json());
+
 // avviamento server
 app.listen(PORT, () => {
     console.log(`Servere avviato ${HOST}${PORT}`);
