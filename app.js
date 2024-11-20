@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = 3002;
 
@@ -10,6 +11,8 @@ const notFoundMiddleware = require('./middlewares/notFound.js')
 const loggerMiddleware = require('./middlewares/loggerMiddleware.js')
 // importo le rotte
 const PostsRouter = require('./routing/posts.js');
+
+app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 // asset publici
 app.use(express.static('public'))
 // middleware 
