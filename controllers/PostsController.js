@@ -32,9 +32,11 @@ const index = (req, res) => {
 
 // show: tramite il parametro dinamico che rappresenta lo slug del post, ritornerà un json con i dati del post
 const show = (req, res) => {
-    const post = posts.find(post => post.slug === req.params.slug);
+    const post = posts.find(post => post.slug.toLowerCase() === req.params.slug.toLowerCase());
     if (!post) {
-        return res.status(404).send('Post non trovato');
+        return res.status(404).json({
+            error: `404! Not found`
+        })
     }
     
     return res.status(200).json({
